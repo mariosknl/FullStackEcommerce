@@ -1,4 +1,5 @@
 import { Router } from "express";
+
 import {
   listProducts,
   createProduct,
@@ -6,13 +7,15 @@ import {
   deleteProduct,
   getProductById,
 } from "./productsController";
+import { validateData } from "../../middlewares/validationMiddleware";
+import { createProductSchema } from "../../db/productsSchema";
 
 // products endpoints
 const router = Router();
 
 router.get("/", listProducts);
 router.get("/:id", getProductById);
-router.post("/", createProduct);
+router.post("/", validateData(createProductSchema), createProduct);
 router.put("/:id", updateProduct);
 router.delete("/:id", deleteProduct);
 
