@@ -8,7 +8,10 @@ import {
   getProductById,
 } from "./productsController";
 import { validateData } from "../../middlewares/validationMiddleware";
-import { createProductSchema } from "../../db/productsSchema";
+import {
+  createProductSchema,
+  updateProductSchema,
+} from "../../db/productsSchema";
 
 // products endpoints
 const router = Router();
@@ -16,7 +19,7 @@ const router = Router();
 router.get("/", listProducts);
 router.get("/:id", getProductById);
 router.post("/", validateData(createProductSchema), createProduct);
-router.put("/:id", updateProduct);
+router.put("/:id", validateData(updateProductSchema), updateProduct);
 router.delete("/:id", deleteProduct);
 
 export default router;
