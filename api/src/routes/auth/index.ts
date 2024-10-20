@@ -12,6 +12,12 @@ import jwt from "jsonwebtoken";
 
 const router = Router();
 
+const generateUserToken = (user: any) => {
+  return jwt.sign({ userId: user.id, role: user.role }, "your-secret", {
+    expiresIn: "30d",
+  });
+};
+
 router.post("/register", validateData(createUserSchema), async (req, res) => {
   try {
     const data = req.cleanBody;
@@ -21,9 +27,11 @@ router.post("/register", validateData(createUserSchema), async (req, res) => {
 
     // @ts-ignore
     delete user.password;
+    const token = generateUserToken(user);
 
-    res.status(201).json({ user });
-  } catch (error) {
+    res.status(201).json({ user, token });
+  } catch (e) {
+    console.log(e);
     res.status(500).send("Something went wrong");
   }
 });
@@ -31,15 +39,16 @@ router.post("/register", validateData(createUserSchema), async (req, res) => {
 router.post("/login", validateData(loginSchema), async (req, res) => {
   try {
     const { email, password } = req.cleanBody;
+
     const [user] = await db
       .select()
       .from(usersTable)
       .where(eq(usersTable.email, email));
-
     if (!user) {
       res.status(401).json({ error: "Authentication failed" });
       return;
     }
+
     const matched = await bcrypt.compare(password, user.password);
     if (!matched) {
       res.status(401).json({ error: "Authentication failed" });
@@ -47,23 +56,13 @@ router.post("/login", validateData(loginSchema), async (req, res) => {
     }
 
     // create a jwt token
-    const token = jwt.sign(
-      {
-        userId: user.id,
-        role: user.role,
-      },
-      "your-secret",
-      { expiresIn: "30d" }
-    );
-
+    const token = generateUserToken(user);
     // @ts-ignore
     delete user.password;
-
     res.status(200).json({ token, user });
-  } catch (error) {
+  } catch (e) {
     res.status(500).send("Something went wrong");
   }
-  res.send(200);
 });
 
 export default router;

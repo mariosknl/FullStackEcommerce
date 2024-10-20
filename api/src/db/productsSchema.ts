@@ -1,9 +1,9 @@
 import {
-  doublePrecision,
   integer,
   pgTable,
-  text,
   varchar,
+  text,
+  doublePrecision,
 } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 
