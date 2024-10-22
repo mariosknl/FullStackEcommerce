@@ -7,11 +7,15 @@ import { Text } from "@/components/ui/text";
 import { ShoppingCart, User } from "lucide-react-native";
 import { Pressable } from "react-native";
 import { useCart } from "@/store/cartStore";
+import { useAuth } from "@/store/authStore";
 
 const client = new QueryClient();
 
 export default function RootLayout() {
   const cartItemsNum = useCart((state) => state.items.length);
+
+  const isLoggedIn = useAuth((state) => !!state.token);
+
   return (
     <QueryClientProvider client={client}>
       <GluestackUIProvider mode="light">
@@ -25,16 +29,22 @@ export default function RootLayout() {
                 </Pressable>
               </Link>
             ),
-            headerLeft: () => (
-              <Link href={"/login"} asChild>
-                <Pressable className="flex-row gap-2">
-                  <User />
-                </Pressable>
-              </Link>
-            ),
           }}
         >
-          <Stack.Screen name="index" options={{ title: "Shop" }} />
+          <Stack.Screen
+            name="index"
+            options={{
+              title: "Shop",
+              headerLeft: () =>
+                !isLoggedIn && (
+                  <Link href={"/login"} asChild>
+                    <Pressable className="flex-row gap-2">
+                      <User />
+                    </Pressable>
+                  </Link>
+                ),
+            }}
+          />
           <Stack.Screen name="product/[id]" options={{ title: "Product" }} />
         </Stack>
       </GluestackUIProvider>
