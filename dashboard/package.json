@@ -24,7 +24,7 @@
     "react-dom": "^18",
     "react-native-css-interop": "^0.1.0",
     "react-native-svg": "^13.4.0",
-    "react-native-web": "^0.19.13"
+    "react-native-web": "^0.20.0"
   },
   "devDependencies": {
     "@types/node": "^20",
