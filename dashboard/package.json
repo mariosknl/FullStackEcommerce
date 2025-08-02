@@ -10,7 +10,7 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
-    "@expo/html-elements": "^0.4.2",
+    "@expo/html-elements": "^0.12.0",
     "@gluestack-ui/button": "^1.0.7",
     "@gluestack-ui/image": "^0.1.10",
     "@gluestack-ui/nativewind-utils": "^1.0.23",
