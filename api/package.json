@@ -18,7 +18,7 @@
     "bcryptjs": "^3.0.0",
     "drizzle-orm": "^0.44.0",
     "drizzle-zod": "^0.8.0",
-    "express": "^4.21.1",
+    "express": "^5.0.0",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
     "pg": "^8.13.0",
