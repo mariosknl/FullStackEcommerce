@@ -16,7 +16,7 @@
     "@gluestack-ui/nativewind-utils": "^1.0.23",
     "@gluestack-ui/overlay": "^0.1.15",
     "@gluestack-ui/toast": "^1.0.7",
-    "@gluestack/ui-next-adapter": "^2.1.12",
+    "@gluestack/ui-next-adapter": "^3.0.0",
     "autoprefixer": "^10.4.20",
     "nativewind": "^4.0.36",
     "next": "14.2.33",
